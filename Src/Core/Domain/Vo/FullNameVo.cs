@@ -1,8 +1,8 @@
+namespace Src.Core.Domain.Vo.FullNameVo;
 using System.Reflection.Metadata;
 using System.Text;
 using Src.Core.Exceptions.DomainException;
 
-namespace Src.Core.Vo.FullNameVo;
 public class FullNameVo{
     public string FullName{get;}
 
@@ -11,9 +11,13 @@ public class FullNameVo{
       ValidateName(lastName);
       this.FullName=BuildFullName(firstName,lastName);
     }
-
-    public FullNameVo(string fullName){
+    
+    private FullNameVo(string fullName){
         this.FullName=fullName;
+    }
+
+    public static FullNameVo ReceivedFullNameByDatabase(string fullName){
+        return new FullNameVo(fullName);
     }
 
     private void ValidateName(string? name){
@@ -32,16 +36,15 @@ public class FullNameVo{
     private string CapitalizeNames(params string[] names){
        StringBuilder objectStringBuilder=new StringBuilder(); 
        foreach(string name in names){
-            string[] namesWithSpaced=name.Split(' ',StringSplitOptions.RemoveEmptyEntries);
-            foreach(string namespaced in namesWithSpaced){
-                char firstLetterNameUppercase=char.ToUpper(namespaced[0]);
-                objectStringBuilder.Append(firstLetterNameUppercase).
-                Append(namespaced[1..].ToLower())
+            string[] partsName=name.Split(' ',StringSplitOptions.RemoveEmptyEntries);
+            foreach(string nameFetch in partsName){
+                char firstLetterName=char.ToUpper(nameFetch[0]);
+                objectStringBuilder.Append(firstLetterName).
+                Append(nameFetch[1..].ToLower())
                 .Append(" "); 
             }
         }
         string fullNameCompleted=objectStringBuilder.ToString();
-         objectStringBuilder.Clear();
          return fullNameCompleted.Trim();  
     }
 
