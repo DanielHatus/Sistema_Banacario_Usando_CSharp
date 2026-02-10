@@ -3,12 +3,12 @@ using Src.Core.Exceptions.DomainException;
 using Src.Core.Port.ValidatorEmail.Port;
 
 public class EmailVo{
-    public string Email{get;}
+    public string Address{get;}
     public EmailVo(ValidatorEmailPort validatorEmailPort,string? email){
-         this.Email=ValidateEmail(validatorEmailPort,email);
+         this.Address=ValidateEmail(validatorEmailPort,email);
     }
     private EmailVo(string email){
-        this.Email=email;
+        this.Address=email;
     }
     private string ValidateEmail(ValidatorEmailPort validatorEmail,string email){
 

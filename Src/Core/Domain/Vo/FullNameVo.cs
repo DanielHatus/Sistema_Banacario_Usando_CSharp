@@ -4,16 +4,16 @@ using System.Text;
 using Src.Core.Exceptions.DomainException;
 
 public class FullNameVo{
-    public string FullName{get;}
+    public string Value{get;}
 
     public FullNameVo(string? firstName,string? lastName){
       ValidateName(firstName);
       ValidateName(lastName);
-      this.FullName=BuildFullName(firstName,lastName);
+      this.Value=BuildFullName(firstName,lastName);
     }
     
     private FullNameVo(string fullName){
-        this.FullName=fullName;
+        this.Value=fullName;
     }
 
     public static FullNameVo ReceivedFullNameByDatabase(string fullName){

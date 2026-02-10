@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SistemaBancárioEmCsharp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af29b4a4e80ab852108a451fb74914a9e74343da")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6d5ef6252a73c32e0d5b3f49a3894abc22d7a83")]
 [assembly: System.Reflection.AssemblyProductAttribute("SistemaBancárioEmCsharp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SistemaBancárioEmCsharp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
