@@ -1,10 +1,7 @@
-namespace Src.Core.Domain.Model.UserDomain;
+namespace Src.Core.Domain.Model;
 
-using Src.Core.Domain.Enums.Role;
-using Src.Core.Domain.Vo.BankStatementVo;
-using Src.Core.Domain.Vo.EmailVo;
-using Src.Core.Domain.Vo.FullNameVo;
-using Src.Core.Domain.Vo.PasswordPaymentVo;
+using Src.Core.Domain.Enums;
+using Src.Core.Domain.Vo;
 
 public class UserDomain{
     protected UserDomain(){}
@@ -17,7 +14,7 @@ public class UserDomain{
 
     public Role role{get;}
 
-    public UserDomain(FullNameVo fullNameVo,EmailVo emailVo,PasswordPaymentVo passwordPaymentVo){
+    private UserDomain(FullNameVo fullNameVo,EmailVo emailVo,PasswordPaymentVo passwordPaymentVo){
         this.FullName=fullNameVo;
         this.Email=emailVo;
         this.PasswordPaymentVo=passwordPaymentVo;
@@ -34,6 +31,10 @@ public class UserDomain{
         this.role=role;
     }
 
+
+    public static UserDomain  CreateEntityUser(FullNameVo fullName,EmailVo email,PasswordPaymentVo passwordPayment) {
+        return new UserDomain(fullName,email,passwordPayment);
+    }
     public static UserDomain ReceivedEntityByDatabase(long id,FullNameVo fullNameVo,EmailVo emailVo,PasswordPaymentVo passwordPaymentVo,BankStatementVo bankStatementVo,Role role){
        return new UserDomain(id,fullNameVo,emailVo,passwordPaymentVo,bankStatementVo,role); 
     }

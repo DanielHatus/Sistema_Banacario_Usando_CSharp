@@ -1,7 +1,6 @@
-using Src.Core.Application.UseCase.Auth.IGenerateAccessTokenUseCase;
-using Src.Core.Application.UseCase.Auth.IGenerateRefreshTokenUseCase;
-using Src.Core.Domain.Model.UserDomain;
-using Src.Core.Application.UseCase.Crud.ISaveUserUseCase;
+using Src.Core.Application.UseCase.Contract.Auth;
+using Src.Core.Domain.Model;
+using Src.Core.Application.UseCase.Contract.Crud;
 
 namespace Src.Core.Application.Orchestrator.RegisterUserOrchestrator;
 public class RegisterUserOrchestrator{

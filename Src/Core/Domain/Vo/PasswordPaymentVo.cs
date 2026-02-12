@@ -1,11 +1,11 @@
-using Src.Core.Exceptions.DomainException;
+using Src.Core.Exceptions;
 
-namespace Src.Core.Domain.Vo.PasswordPaymentVo;
+namespace Src.Core.Domain.Vo;
 public class PasswordPaymentVo{
     
     public string Password{get;}
 
-    public PasswordPaymentVo(string password){
+    private PasswordPaymentVo(string password){
         this.Password=ValidatePassword(password);
     }
 
@@ -35,4 +35,7 @@ public class PasswordPaymentVo{
         return new PasswordPaymentVo(password,dataReceivedFromDatabase);
     } 
     
+   public static PasswordPaymentVo CreatePasswordPaymentValid(string email){
+        return new PasswordPaymentVo(email);
+    } 
 }

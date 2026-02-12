@@ -1,0 +1,1 @@
+public record UserUpdateRequestDto(string fullName,string email,string passwordPayment){}

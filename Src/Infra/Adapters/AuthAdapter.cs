@@ -1,6 +1,7 @@
-using Src.Core.Port.AuthPort;
+namespace Src.Infra.Adapters;
+using Src.Core.Ports;
 
-public class AuthAdapter : AuthPort
+public class AuthAdapter : IAuthPort
 {
     public string generateAccessToken(string nameFull, string email, long id)
     {

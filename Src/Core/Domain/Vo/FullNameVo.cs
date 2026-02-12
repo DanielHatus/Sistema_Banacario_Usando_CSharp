@@ -1,12 +1,12 @@
-namespace Src.Core.Domain.Vo.FullNameVo;
+namespace Src.Core.Domain.Vo;
 using System.Reflection.Metadata;
 using System.Text;
-using Src.Core.Exceptions.DomainException;
+using Src.Core.Exceptions;
 
 public class FullNameVo{
     public string Value{get;}
 
-    public FullNameVo(string? firstName,string? lastName){
+    private FullNameVo(string? firstName,string? lastName){
       ValidateName(firstName);
       ValidateName(lastName);
       this.Value=BuildFullName(firstName,lastName);
@@ -20,6 +20,9 @@ public class FullNameVo{
         return new FullNameVo(fullName);
     }
 
+    public static FullNameVo CreateFullName(string? firstName,string? lastName){
+        return new FullNameVo(firstName,lastName);
+    }
     private void ValidateName(string? name){
 
        if (string.IsNullOrWhiteSpace(name)){
@@ -47,5 +50,4 @@ public class FullNameVo{
         string fullNameCompleted=objectStringBuilder.ToString();
          return fullNameCompleted.Trim();  
     }
-
 }

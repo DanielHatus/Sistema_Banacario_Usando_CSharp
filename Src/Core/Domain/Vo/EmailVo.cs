@@ -1,10 +1,10 @@
-namespace Src.Core.Domain.Vo.EmailVo;
-using Src.Core.Exceptions.DomainException;
-using Src.Core.Port.ValidatorEmail.Port;
+namespace Src.Core.Domain.Vo;
+using Src.Core.Exceptions;
+using Src.Core.Port;
 
 public class EmailVo{
     public string Address{get;}
-    public EmailVo(ValidatorEmailPort validatorEmailPort,string? email){
+    private EmailVo(ValidatorEmailPort validatorEmailPort,string? email){
          this.Address=ValidateEmail(validatorEmailPort,email);
     }
     private EmailVo(string email){
@@ -26,4 +26,7 @@ public class EmailVo{
         return new EmailVo(email);
     }
 
+    public static EmailVo CreateEmailValid(ValidatorEmailPort validatorEmailPort,string email){
+        return new EmailVo(validatorEmailPort,email);
+    }
 }

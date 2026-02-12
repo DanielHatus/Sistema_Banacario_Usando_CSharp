@@ -1,8 +1,8 @@
-namespace Src.Core.Domain.Vo.BankStatementVo;
-using Src.Core.Exceptions.DomainException;
+namespace Src.Core.Domain.Vo;
+using Src.Core.Exceptions;
 
 public class BankStatementVo{
-    public decimal Statement{get;}
+    public decimal Statement{get;private set;}
     public static BankStatementVo InitCreditsBonusFromCreateAccount(){
         return new BankStatementVo(1000);
     }
@@ -14,14 +14,14 @@ public static BankStatementVo ReceivedBankStatementByDatabase(decimal actBankSta
         this.Statement=bankStatement;
     }
 
-    public BankStatementVo EffectPayment(decimal amount){
+    public void EffectPayment(decimal amount){
         if (amount <= 0 || amount > this.Statement){
             throw new DomainException("o valor do pagamento não pode ser menor ou igual a 0, ou maior que seu extrator atual.",400);
         }
-        return new BankStatementVo(this.Statement-amount);
+       this.Statement-=amount;
     }
 
-    public BankStatementVo ReceivedPayment(decimal amount){
-       return new BankStatementVo(this.Statement+amount);
+    public void ReceivedPayment(decimal amount){
+       this.Statement+=amount;
     }
 }

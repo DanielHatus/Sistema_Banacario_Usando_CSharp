@@ -1,8 +1,8 @@
-namespace Src.Infra.Adapters.ValidatorEmailAdapter;
+namespace Src.Infra.Adapters;
 using System.ComponentModel.DataAnnotations;
-using Src.Core.Port.ValidatorEmail.Port;
+using Src.Core.Ports;
 
-public class ValidatorEmailAdapter : ValidatorEmailPort
+public class ValidatorEmailAdapter :  IValidatorEmailPort
 {
     public bool EmailIsValid(string email){
         EmailAddressAttribute emailAddress=new EmailAddressAttribute();
