@@ -6,6 +6,7 @@ public class PasswordPaymentVo{
     public string Password{get;}
 
     private PasswordPaymentVo(string password){
+        
         this.Password=ValidatePassword(password);
     }
 
@@ -31,8 +32,8 @@ public class PasswordPaymentVo{
         this.Password=password;
     }
     
-   public static PasswordPaymentVo ReceivedPasswordByDatabase(string password,bool dataReceivedFromDatabase){
-        return new PasswordPaymentVo(password,dataReceivedFromDatabase);
+   public static PasswordPaymentVo ReceivedPasswordByDatabase(string password){
+        return new PasswordPaymentVo(password,true);
     } 
     
    public static PasswordPaymentVo CreatePasswordPaymentValid(string email){

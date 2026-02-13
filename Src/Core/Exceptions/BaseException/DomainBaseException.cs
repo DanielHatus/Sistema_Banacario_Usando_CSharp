@@ -1,4 +1,4 @@
-namespace Src.Core.Exceptions;
+namespace Src.Core.Exceptions.BaseException;
 public class DomainBaseException : Exception{
     public int StatusCode{get;}
     

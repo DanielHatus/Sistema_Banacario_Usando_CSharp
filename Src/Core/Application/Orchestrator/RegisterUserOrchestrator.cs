@@ -11,7 +11,7 @@ public class RegisterUserOrchestrator{
     private readonly ISaveUserUseCase _saveUser;
 
     public async Task<TokensResponseDto> Execute(UserRegisterRequestDto dto){
-        var entitySaved=await this._saveUser.Execute(dto);
+        UserDomain entitySaved=await this._saveUser.Execute(dto);
 
         string accessToken=this._generateAccessToken.Execute(
             entitySaved.FullName.Value,

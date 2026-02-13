@@ -10,8 +10,7 @@ public class GenerateRefreshTokenImpl:IGenerateRefreshTokenUseCase{
         this._authPort=authPort;
     }
 
-    public string Execute(string nameFull, string email, long id)
-    {
-        return this._authPort.generateRefreshToken(nameFull,email,id);
+    public string Execute(string nameFull, string email, long? id){
+        return this._authPort.GenerateRefreshToken(nameFull,email,id);
     }
 }
