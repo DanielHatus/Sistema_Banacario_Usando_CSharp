@@ -1,5 +1,5 @@
 namespace Src.Core.Domain.Model.HistoryPaymentDomain;
-using Src.Core.Domain.Model.UserDomain;
+using Src.Core.Domain.Model;
 
 public class HistoryPaymentDomain{
     

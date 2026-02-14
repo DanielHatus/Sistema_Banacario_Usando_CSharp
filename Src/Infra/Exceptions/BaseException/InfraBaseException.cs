@@ -1,6 +1,7 @@
-using Src.Core.Exceptions;
+using Src.Core.Exceptions.BaseException;
 
 public class InfraBaseException:Exception{
     
-    public InfraBaseException(string message):base(message){}
+    public  int StatusCode{get;}
+    public InfraBaseException(string message,int statusCode):base(message)=> StatusCode=statusCode;
 }

@@ -1,1 +1,1 @@
-public record TokensResponseDto(string accessToken,string refreshToken);
+public record TokensResponseDto(string AccessToken,string RefreshToken);

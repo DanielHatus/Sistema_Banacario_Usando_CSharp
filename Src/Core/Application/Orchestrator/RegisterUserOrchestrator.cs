@@ -2,16 +2,24 @@ using Src.Core.Application.UseCase.Contract.Auth;
 using Src.Core.Domain.Model;
 using Src.Core.Application.UseCase.Contract.Crud;
 
-namespace Src.Core.Application.Orchestrator.RegisterUserOrchestrator;
+namespace Src.Core.Application.Orchestrator;
 public class RegisterUserOrchestrator{
-    
     private readonly IGenerateAccessTokenUseCase _generateAccessToken;
     private readonly IGenerateRefreshTokenUseCase _generateRefreshToken;
 
-    private readonly ISaveUserUseCase _saveUser;
+    private readonly IRegisterUserUseCase _registerUser;
+
+    public RegisterUserOrchestrator(
+        IGenerateAccessTokenUseCase generateAccessToken,
+        IGenerateRefreshTokenUseCase generateRefreshToken,
+        IRegisterUserUseCase registerUser){
+         _generateAccessToken=generateAccessToken;
+         _generateRefreshToken=generateRefreshToken;
+         _registerUser=registerUser;
+    }
 
     public async Task<TokensResponseDto> Execute(UserRegisterRequestDto dto){
-        UserDomain entitySaved=await this._saveUser.Execute(dto);
+        UserDomain entitySaved=await _registerUser.Execute(dto);
 
         string accessToken=this._generateAccessToken.Execute(
             entitySaved.FullName.Value,

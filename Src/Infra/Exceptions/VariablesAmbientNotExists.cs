@@ -1,3 +1,3 @@
 public class VariablesAmbientNotExists:InfraBaseException{
-    public VariablesAmbientNotExists(string message):base(message){}
+    public VariablesAmbientNotExists(string message,int statusCode):base(message,statusCode){}
 }

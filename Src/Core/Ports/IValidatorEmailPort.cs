@@ -1,5 +1,5 @@
 namespace Src.Core.Ports;
 public interface IValidatorEmailPort{
-    bool EmailIsValid(string email);
-    
+    bool EmailISyntaxIsValid(string email);
+    bool ExistsUserWithEmailReceivedByRequest(string email);   
 }

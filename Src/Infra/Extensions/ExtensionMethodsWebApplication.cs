@@ -1,17 +1,24 @@
 
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Src.Core.Application.Orchestrator;
 using Src.Core.Application.UseCase.Contract.Auth;
+using Src.Core.Application.UseCase.Contract.Crud;
 using Src.Core.Application.UseCase.Implementation.Auth;
 using Src.Core.Ports;
 using Src.Infra.Adapters;
+using Src.Infra.Db_Context;
+using Src.Infra.Mapper;
+using Src.Infra.Persistence.Repository.Contract;
+using Src.Infra.Persistence.Repository.Implementation;
 using Src.Infra.Utils;
 
 namespace Src.Infra.Extensions;
 public static class ExtensionMethodsWebApplication{
-public static void AddSecurityConfiguration(this WebApplicationBuilder builder){
-        var key=Encoding.ASCII.GetBytes("X2U3askdYMxjL1wRc8Ai8GAXJL901G0TQPSltdCnJqO");
+public static void AddSecurityConfiguration(this WebApplicationBuilder builder,string keySecret){
+        var key=Encoding.ASCII.GetBytes(keySecret);
 
         builder.Services.AddAuthentication(x =>{
            x.DefaultAuthenticateScheme=JwtBearerDefaults.AuthenticationScheme;
@@ -26,19 +33,35 @@ public static void AddSecurityConfiguration(this WebApplicationBuilder builder){
            IssuerSigningKey= new SymmetricSecurityKey(key),
            ValidateIssuer=false,
            ValidateAudience=false,
-           ValidateLifetime=false,
+           ValidateLifetime=true,
            ClockSkew=TimeSpan.Zero
           };
         });
     }
 public static void AddInstances(this WebApplicationBuilder builder){
-     builder.Services.AddTransient<IValidatorEmailPort,ValidatorEmailAdapter>();
+             //Instancias relaciondas ao banco de dados.
+     builder.Services.AddScoped<AppDbContext>();
+     builder.Services.AddScoped<IRepositoryUser,RepositoryUserImpl>();
 
-     builder.Services.AddTransient<IGenerateAccessTokenUseCase,GenerateAccessTokenImpl>();
+            //Instancia relacionadas aos ports/adapters
+     builder.Services.AddSingleton<IAuthPort,AuthAdapter>();
+     builder.Services.AddSingleton<IBCryptPort,BCryptAdapter>();
+     builder.Services.AddScoped<IUserDbPort,UserDbAdapter>();
+     builder.Services.AddScoped<IValidatorEmailPort,ValidatorEmailAdapter>();
 
-     builder.Services.AddTransient<IGenerateRefreshTokenUseCase,GenerateRefreshTokenImpl>();
+            //Instancias sobre outros objetos no geral
+     builder.Services.AddSingleton<UserMapper>();
+     builder.Services.AddScoped<VariablesAmbientObject>();
 
-     builder.Services.AddTransient<IAuthPort,AuthAdapter>();
+            //Instancias para os orquestradores
+     builder.Services.AddScoped<RegisterUserOrchestrator>();
+     builder.Services.AddScoped<LoginUserOrchestrator>();
+
+            //Instancias para os use cases
+     builder.Services.AddSingleton<IGenerateAccessTokenUseCase,GenerateAccessTokenUseCaseImpl>();
+     builder.Services.AddSingleton<IGenerateRefreshTokenUseCase,GenerateRefreshTokenUseCaseImpl>();
+     builder.Services.AddScoped<IRegisterUserUseCase,RegisterUserUseCaseImpl>();
+     builder.Services.AddScoped<ILoginUserUseCase,LoginUserUseCaseImpl>();           
     }
 public static VariablesAmbientObject AddVariablesAmbient(this IServiceCollection service,IConfiguration config){
   var settings=new VariablesAmbientObject(){

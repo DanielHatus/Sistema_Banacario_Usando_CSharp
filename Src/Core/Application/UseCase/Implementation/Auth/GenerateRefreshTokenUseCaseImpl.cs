@@ -2,11 +2,11 @@ namespace Src.Core.Application.UseCase.Implementation.Auth;
 using Src.Core.Application.UseCase.Contract.Auth;
 using Src.Core.Ports;
 
-public class GenerateRefreshTokenImpl:IGenerateRefreshTokenUseCase{
+public class GenerateRefreshTokenUseCaseImpl:IGenerateRefreshTokenUseCase{
     
     public readonly IAuthPort _authPort;
 
-    public GenerateRefreshTokenImpl(IAuthPort authPort){
+    public GenerateRefreshTokenUseCaseImpl(IAuthPort authPort){
         this._authPort=authPort;
     }
 

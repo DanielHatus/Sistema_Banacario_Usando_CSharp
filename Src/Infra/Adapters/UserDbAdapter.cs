@@ -10,7 +10,6 @@ namespace Src.Infra.Adapters;
 public class UserDbAdapter : IUserDbPort{
     public readonly IRepositoryUser _iRepositoryUser;
     public readonly UserMapper _userMapper;
-
     public UserDbAdapter(IRepositoryUser iRepositoryUser,UserMapper userMapper){
         this._iRepositoryUser=iRepositoryUser;
         this._userMapper=userMapper;
@@ -19,9 +18,14 @@ public class UserDbAdapter : IUserDbPort{
         return this._iRepositoryUser.DeleteUserById(id);
     }
 
+    public UserDomain GetUserByEmailIfExists(string email){
+        UserPersist entityPersist=_iRepositoryUser.GetUserByEmailIfExists(email);
+        return _userMapper.ToDomain(entityPersist);    
+    }
+
     public async Task<UserDomain> GetUserById(long id){
         UserDomain entityConverted=this._userMapper.ToDomain(
-            await this._iRepositoryUser.GetUserById(id));
+            await _iRepositoryUser.GetUserById(id));
         return entityConverted;    
     }
 
@@ -29,7 +33,7 @@ public class UserDbAdapter : IUserDbPort{
     {
        UserPersist entityConvertedFromPersist=this._userMapper.ToPersist(userDomain);
        UserDomain entitySavedConvertedFromDomain=this._userMapper.ToDomain(
-        await this._iRepositoryUser.RegisterUser(entityConvertedFromPersist)
+        await _iRepositoryUser.RegisterUser(entityConvertedFromPersist)
        );
        return entitySavedConvertedFromDomain;
     }
@@ -37,7 +41,8 @@ public class UserDbAdapter : IUserDbPort{
     public async Task<UserDomain> UpdateUser(UserDomain actEntity, UserUpdateRequestDto dto){
         UserPersist entityConvertedFromPersist=this._userMapper.ToPersist(actEntity);
         UserDomain entityUpdatedConvertedFromDomain=this._userMapper.ToDomain(
-            await this._iRepositoryUser.UpdateUser(entityConvertedFromPersist,dto));
+            await _iRepositoryUser.UpdateUser(entityConvertedFromPersist,dto));
         return entityUpdatedConvertedFromDomain;    
     }
+
 }

@@ -1,1 +1,1 @@
-public record UserLoginRequestDto(string email,string password);
+public record UserLoginRequestDto(string Email,string Password);

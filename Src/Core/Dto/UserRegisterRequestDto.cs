@@ -1,1 +1,1 @@
-public record UserRegisterRequestDto(string? firstName,string? lastName,string? email,string? password);
+public record UserRegisterRequestDto(string? FirstName,string? LastName,string? Email,string? Password);
